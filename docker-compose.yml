@@ -1,0 +1,25 @@
+services:
+  # PostgreSQL Database for persistent data (users, taboo word cards)
+  postgres:
+    image: postgres:16-alpine
+    container_name: oyun_platformu_db
+    restart: always
+    environment:
+      POSTGRES_USER: oyun_user
+      POSTGRES_PASSWORD: oyun_sifre123
+      POSTGRES_DB: oyun_platformu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Redis for real-time memory cache (lobby matchmaking, rooms, timer state)
+  redis:
+    image: redis:7-alpine
+    container_name: oyun_platformu_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
